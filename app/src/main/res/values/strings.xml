@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppProyecto</string>
+    <string name="not_log_in">Error al iniciar sesión</string>
 </resources>
