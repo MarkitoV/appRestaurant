@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -19,13 +20,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient googleApiClient;
     private SignInButton signInButton;
+    private Button btnsiguiente;
     public static final int SING_IN_CODE = 777;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        btnsiguiente = (Button)findViewById(R.id.btnsiguiente);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -43,6 +46,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivityForResult(intent, SING_IN_CODE);
             }
         });
+        btnsiguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                goTabbetScreem();
+            }
+        });
+    }
+
+    private void goTabbetScreem() {
+        Intent intent = new Intent(this, TabetActivity.class);
+        startActivity(intent);
     }
 
     @Override
