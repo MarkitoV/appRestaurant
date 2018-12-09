@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppProyecto</string>
+    <string name="app_name">AppFood</string>
     <string name="not_log_in">Error al iniciar sesión</string>
     <string name="siguiente">Siguiente</string>
     <string name="menu_navegacion">Menu de Navegación</string>
@@ -12,4 +12,10 @@
     <string name="addrestaurant">Añadir Restaurante</string>
     <string name="addmenu">Añadir Menu</string>
     <string name="addpedido">Añadir Pedido</string>
+    <string name="title_activity_tabet">TabetActivity</string>
+    <string name="tab_text_1">Restaurante</string>
+    <string name="tab_text_2">Menu</string>
+    <string name="tab_text_3">Pedido</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
