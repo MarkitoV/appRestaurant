@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">AppProyecto</string>
     <string name="not_log_in">Error al iniciar sesión</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="menu_navegacion">Menu de Navegación</string>
+    <string name="restaurantes">Registrar Restaurantes</string>
+    <string name="menu">Registrar Menu</string>
+    <string name="clientes">Registrar Clientes</string>
+    <string name="pedidos">Hacer Pedidos</string>
+    <string name="title_activity_nav">NavActivity</string>
+    <string name="addcliente">Añadir Cliente</string>
+    <string name="addrestaurant">Añadir Restaurante</string>
+    <string name="addmenu">Añadir Menu</string>
+    <string name="addpedido">Añadir Pedido</string>
 </resources>

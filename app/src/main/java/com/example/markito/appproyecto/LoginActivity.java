@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient googleApiClient;
     private SignInButton signInButton;
+    private Button btnSiguiente;
     public static final int SING_IN_CODE = 777;
 
     @Override
@@ -41,6 +43,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onClick(View v) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent, SING_IN_CODE);
+            }
+        });
+
+        btnSiguiente = (Button) findViewById(R.id.btnSiguiente);
+        btnSiguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, NavActivity.class);
+                startActivity(intent);
             }
         });
     }
