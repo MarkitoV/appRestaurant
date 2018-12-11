@@ -17,5 +17,9 @@
     <string name="price_menu">Precio</string>
     <string name="insertar">Insertar</string>
     <string name="photo">Tomar Foto</string>
+<<<<<<< HEAD
     <string name="title_activity_maps">Map</string>
+=======
+    <string name="description">Descripción</string>
+>>>>>>> 7b69e9fd4760e14ecd58f13ec8728987a3d39e32
 </resources>
