@@ -28,6 +28,7 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Date;
@@ -83,15 +84,12 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
         params.add("Log",String.valueOf(""));
 
         client.post(Data.REGISTER_RESTAURANT,params,new JsonHttpResponseHandler(){
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                //super.onSuccess(statusCode, headers, response);
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 AlertDialog alertDialog = new AlertDialog.Builder(RestaurantActivity.this).create();
-                try {
-                    Toast toast1 =
-                            Toast.makeText(getApplicationContext(),
-                                    "Daos guardados", Toast.LENGTH_SHORT);
-                    toast1.show();
-                    String msn = response.getString(Integer.parseInt("msn"));
+
+               try {
+                    String msn = response.getString("msn");
                     alertDialog.setTitle("RESPONSE SERVER");
                     alertDialog.setMessage(msn);
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -102,7 +100,8 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
                                 }
                             });
                     alertDialog.show();
-                } catch (JSONException e) {
+                }
+                catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Intent camera=new Intent(RestaurantActivity.this,CameraPhoto.class);
