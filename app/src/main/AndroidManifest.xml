@@ -37,7 +37,15 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".PedidosActivity" />
 
-
+        <provider
+            android:authorities="${applicationId}.provider"
+            android:name="android.support.v4.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
