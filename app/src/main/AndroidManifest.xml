@@ -29,22 +29,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NavActivity"></activity>
-        <activity android:name=".RestaurantActivity">
-
-        </activity>
+        <activity android:name=".NavActivity" />
+        <activity android:name=".RestaurantActivity"></activity>
         <activity android:name=".ClientesActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".PedidosActivity" />
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="android.support.v4.content.FileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <!--
@@ -62,9 +60,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".CameraPhoto">
-
-        </activity>
+        <activity android:name=".CameraPhoto"></activity>
+        <activity android:name=".SelectRestActivity"></activity>
     </application>
 
 </manifest>

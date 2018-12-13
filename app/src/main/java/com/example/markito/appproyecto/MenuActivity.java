@@ -15,6 +15,9 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +25,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.markito.appproyecto.adapters.MenuAdapter;
+import com.example.markito.appproyecto.items.ItemMenu;
+import com.example.markito.appproyecto.utils.BitmapStruct;
 import com.example.markito.appproyecto.utils.Data;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -45,6 +53,8 @@ public class MenuActivity extends AppCompatActivity {
     private EditText     txtDescription;
     private Button       btnInsertar;
     private String       PATH_IMAGE;
+    ArrayList<ItemMenu>  listData;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,14 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        btnPhoto = (ImageButton) findViewById(R.id.btnPhoto);
+        btnPhoto = (ImageButton) findViewById(R.id.btnPhotoM);
+
+        listData = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById((R.id.RecyclerView));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        MenuAdapter adapater = new MenuAdapter(this, listData);
+        //MenuAdapter adapater = new MenuAdapter(this, listData);
+        recyclerView.setAdapter(adapater);
 
         btnPhoto.setVisibility(View.INVISIBLE);
         if (reviewPermissions()) {
@@ -77,7 +94,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        btnInsertar = (Button) findViewById(R.id.btnInsertar);
+        btnInsertar = (Button) findViewById(R.id.btnInsertarM);
         btnInsertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +129,18 @@ public class MenuActivity extends AppCompatActivity {
         params.add("name", txtName.getText().toString());
         params.add("price", txtPrecio.getText().toString());
         params.add("description", txtDescription.getText().toString());
+        params.add("idrestaurant", Data.ID_RESTAURANT);
+
+        if (PATH_IMAGE != null) {
+            File img = new File(PATH_IMAGE);
+            try {
+                params.put("picture", img);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "Guardando sin imagen", Toast.LENGTH_SHORT);
+        }
 
         client.post(Data.REGISTER_MENU, params, new JsonHttpResponseHandler(){
             @Override
@@ -127,14 +156,67 @@ public class MenuActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         }
-                        });
+                });
+                try {
+                    String message = response.getString("message");
+                    if (message != null) {
+                        Toast.makeText(MenuActivity.this, message, Toast.LENGTH_LONG).show();
+                        PATH_IMAGE = "";
+                        txtName.getText().clear();
+                        txtPrecio.getText().clear();
+                        txtDescription.getText().clear();
+                        getData();
+                    } else {
+                        Toast.makeText(MenuActivity.this, "Error en la conexión", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        if (PATH_IMAGE != null) {
-            File img = new File(PATH_IMAGE);
-        } else {
-            Toast.makeText(this, "Guardando sin imagen", Toast.LENGTH_SHORT);
-        }
+    }
+
+    private void getData() {
+        listData.clear();
+        AsyncHttpClient listaMenu = new AsyncHttpClient();
+        listaMenu.get(Data.SHOW_MENU, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //super.onSuccess(statusCode, headers, response);
+                String id;
+                String idrestaurant;
+                String name;
+                String price;
+                String description;
+                String picture = "";
+                try {
+                    JSONArray data = response.getJSONArray("result");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        id = item.getString("id");
+                        idrestaurant = item.getString("idrestaurant");
+                        name = item.getString("name");
+                        price = item.getString("price");
+                        description = item.getString("description");
+                        if (item.has("picture")) {
+                            picture = item.getString("picture");
+                        }
+                        Log.i("IMG", item.getString("picture"));
+                        listData.add(new ItemMenu(id, idrestaurant, name, price, picture));
+                    }
+                    loadData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void loadData() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
+        MenuAdapter adapter = new MenuAdapter(this, listData);
+        recyclerView.setAdapter(adapter);
     }
 
     private boolean reviewPermissions() {

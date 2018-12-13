@@ -50,18 +50,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         private TextView         idrestaurant;
         private TextView         name;
         private TextView         price;
+        private TextView         description;
         private ImageView        picture;
         private ConstraintLayout parentLayout;
         public MenuViewHolder(View itemView) {
             super(itemView);
-            name         = itemView.findViewById(R.id.textNombreMe);
-            price        = itemView.findViewById(R.id.textPrecioMe);
-            picture      = itemView.findViewById(R.id.image_view_Me);
-            parentLayout = itemView.findViewById(R.id.parent_layaut);
+            name         = itemView.findViewById(R.id.txtNomItem);
+            price        = itemView.findViewById(R.id.txtPrecioItem);
+            picture      = itemView.findViewById(R.id.imgItem);
+            parentLayout = itemView.findViewById(R.id.item_layoud);
         }
         public void setData(ItemMenu itemMenu) {
             name.setText(itemMenu.getName());
-            price.setText(itemMenu.getPrice().toString());
+            price.setText(itemMenu.getPrice());
         }
 
     }

@@ -4,15 +4,15 @@ public class ItemMenu {
     private String id;
     private String idRestaurant;
     private String name;
+    private String price;
     private String picture;
-    private Double price;
 
-    public ItemMenu(String id, String idRestaurant, String name, String picture, Double price) {
+    public ItemMenu(String id, String idRestaurant, String name, String price, String picture) {
         this.id = id;
         this.idRestaurant = idRestaurant;
         this.name = name;
-        this.picture = picture;
         this.price = price;
+        this.picture = picture;
     }
 
     public String getId() {
@@ -39,19 +39,20 @@ public class ItemMenu {
         this.name = name;
     }
 
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public String getPicture() {
         return picture;
     }
 
     public void setPicture(String picture) {
         this.picture = picture;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 }

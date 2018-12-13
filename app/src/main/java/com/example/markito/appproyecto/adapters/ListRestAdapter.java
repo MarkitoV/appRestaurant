@@ -38,11 +38,11 @@ public class ListRestAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+        /*if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.item_buscar_rest, null);
         }
-        TextView maneListRest = (TextView) convertView.findViewById(R.id.);
+        TextView maneListRest = (TextView) convertView.findViewById(R.id.);*/
         return null;
     }
 }
