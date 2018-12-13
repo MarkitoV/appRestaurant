@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Nit"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -58,7 +58,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Telefono"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/property" />

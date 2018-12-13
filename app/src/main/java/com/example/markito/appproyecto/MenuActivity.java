@@ -55,6 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     private String       PATH_IMAGE;
     ArrayList<ItemMenu>  listData;
     private RecyclerView recyclerView;
+    private String       ID_RESTAURANT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +64,6 @@ public class MenuActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.imageView);
         btnPhoto = (ImageButton) findViewById(R.id.btnPhotoM);
-
-        listData = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById((R.id.RecyclerView));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        MenuAdapter adapater = new MenuAdapter(this, listData);
-        //MenuAdapter adapater = new MenuAdapter(this, listData);
-        recyclerView.setAdapter(adapater);
 
         btnPhoto.setVisibility(View.INVISIBLE);
         if (reviewPermissions()) {
@@ -129,18 +123,6 @@ public class MenuActivity extends AppCompatActivity {
         params.add("name", txtName.getText().toString());
         params.add("price", txtPrecio.getText().toString());
         params.add("description", txtDescription.getText().toString());
-        params.add("idrestaurant", Data.ID_RESTAURANT);
-
-        if (PATH_IMAGE != null) {
-            File img = new File(PATH_IMAGE);
-            try {
-                params.put("picture", img);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(this, "Guardando sin imagen", Toast.LENGTH_SHORT);
-        }
 
         client.post(Data.REGISTER_MENU, params, new JsonHttpResponseHandler(){
             @Override
@@ -155,27 +137,19 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        }
-                });
-                try {
-                    String message = response.getString("message");
-                    if (message != null) {
-                        Toast.makeText(MenuActivity.this, message, Toast.LENGTH_LONG).show();
-                        PATH_IMAGE = "";
-                        txtName.getText().clear();
-                        txtPrecio.getText().clear();
-                        txtDescription.getText().clear();
-                        getData();
-                    } else {
-                        Toast.makeText(MenuActivity.this, "Error en la conexión", Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                });
             }
         });
+        if (PATH_IMAGE != null) {
+            File img = new File(PATH_IMAGE);
+        } else {
+            Toast.makeText(this, "Guardando sin imagen", Toast.LENGTH_SHORT);
+        }
     }
 
+
+    //no se usa, todavia
     private void getData() {
         listData.clear();
         AsyncHttpClient listaMenu = new AsyncHttpClient();
@@ -212,7 +186,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
-
+    //no se usa todavia
     private void loadData() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
         MenuAdapter adapter = new MenuAdapter(this, listData);

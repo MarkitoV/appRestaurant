@@ -110,6 +110,7 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
 
         });
 
+
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {

@@ -40,6 +40,7 @@ public class CameraPhoto extends AppCompatActivity {
     private ImageButton  BTN;
     private Button       SEND;
     private BitmapStruct DATA_IMAGE;
+    private String ID_RESTAURANT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,10 @@ public class CameraPhoto extends AppCompatActivity {
                     File img = new File(DATA_IMAGE.path);
                     client.addHeader("authorization", Data.TOKEN);
                     RequestParams params = new RequestParams();
-                    try {
-                        params.put("picture", img);
-                        params.add("id", Data.ID_RESTAURANT);
-                        client.post(Data.ADD_REST_IMG + "?id=" + Data.ID_RESTAURANT, params, new JsonHttpResponseHandler(){
+                    //try {
+                        params.add("picture", DATA_IMAGE.path);
+                        params.put("id", ID_RESTAURANT);
+                        client.post(Data.ADD_REST_IMG + "?id=" + ID_RESTAURANT, params, new JsonHttpResponseHandler(){
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                                 //super.onSuccess(statusCode, headers, response);
@@ -82,9 +83,9 @@ public class CameraPhoto extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    //} catch (FileNotFoundException e) {
+                    //    e.printStackTrace();
+                    //}
                 }
             }
         });
